@@ -1,0 +1,7 @@
+chromadb
+ollama
+pydantic
+diff-match-patch
+pyyaml
+fastapi
+uvicorn

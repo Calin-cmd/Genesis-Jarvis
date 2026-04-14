@@ -1,21 +1,35 @@
 # jarvis/core.py
 import asyncio
+from jarvis.config import JarvisConfig
 from jarvis.memory_provider import GenesisMemoryProvider
 
 class JarvisOrchestrator:
     def __init__(self, profile: str = "default", model: str = "llama3.2"):
-        self.profile = profile
-        self.model = model
+        self.config = JarvisConfig(profile=profile, default_model=model)
         self.memory_provider = None
 
     async def run(self):
-        # Initialize Genesis as memory provider
-        self.memory_provider = GenesisMemoryProvider()
-        self.memory_provider.initialize(session_id=f"jarvis-{self.profile}")
+        print("🚀 Initializing Genesis-Jarvis...")
 
-        print("✅ Genesis-Jarvis is now running with full OmniPalace + Cerberus brain!")
-        print("   Memory, Wiki, and Spatial Palace are active.")
-        
-        # TODO: Later we will start the full Hermes agent here with Genesis provider
-        await asyncio.sleep(1)  # Placeholder
-        print("🧠 Ready for commands. (Full integration coming in next steps)")
+        # Initialize Genesis Memory Provider
+        self.memory_provider = GenesisMemoryProvider()
+        self.memory_provider.initialize(
+            session_id=f"jarvis-{self.config.profile}",
+            home_dir=self.config.home_dir
+        )
+
+        print("✅ Genesis-Jarvis is alive!")
+        print("   • Spatial Memory Palace (OmniPalace) Active")
+        print("   • Living Obsidian Wiki Active")
+        print("   • Cerberus Multi-Agent Reasoning Ready")
+        print("\nType 'exit' or press Ctrl+C to quit.\n")
+
+        # Placeholder loop for now
+        while True:
+            try:
+                user_input = input("You: ")
+                if user_input.lower() in ["exit", "quit"]:
+                    break
+                print("Jarvis: Thinking... (Full conversation loop coming soon)")
+            except KeyboardInterrupt:
+                break
